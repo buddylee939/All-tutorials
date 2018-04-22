@@ -1,0 +1,478 @@
+<div class="container">
+  <div class="row">
+		<div class="col">
+			<p class="warning">
+				<span>It's a Trap!!!!</span>
+			</p>
+			<div class="image">
+				<%= image_tag 'https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/09/12/11/naturo-monkey-selfie.jpg' %>
+				<p>click me</p>
+			</div>
+		</div>
+  </div>
+  <div class="row">
+  	<pre>
+//THIS WAITS FOR THE DOM TO BE READY  		
+$(document).ready(function(){
+	// hide warning
+		var warn = $(".warning");
+		warn.hide(1000);
+		$(".image").click(function(){
+			warn.show(5000);
+			// THIS CALLS THE FUNCTION myCODE()
+			myCode();
+		});
+		// TO SEE THE VERSION OF JQUERY
+		// console.log($.fn.jquery);
+});
+// THIS IS SHORT HAND INSTEAD OF WRITING DOCUMENT READY
+$(myCode);
+function myCode(){
+	$(".warning").hide().show();
+}
+// ANOTHER WAY TO CREATE A FUNCTION
+var newCode = function(){
+	$(".image").hide();
+}
+
+// HERE WHEN THE BUTTON IS CLICKED, IT CALLS AN 'UNNAMED' FUNCTION, YOU CAN DO (FUNCTION MYCODE()) BUT COMMON IS TO DO IT THIS WAY, NO NEED TO NAME SINCE WE WONT CALL IT AGAIN
+$(".spoiler button").click(function(){}
+  	</pre>
+  	<h5>If the script tag is at the bottom of the HTML, then the document is already ready to we don't have to call the .ready, so we can jsut do this</h5>
+  	<pre>
+$(".warning").hide();
+$(".image").click(function(){
+	alert("yay you clicked me");
+});  		
+  	</pre>
+  </div>
+  <hr>
+  <div class="row">
+  	<div class="col">
+  		<h2>Creating a spoiler revealer</h2>
+  		<p>The 4 P's of problem solving, Preperation, Plan, Perform, Perfect</p>
+			<p class="spoiler" style="padding: 40px; background: lightblue; text-align: center;">
+				<span>Darth Vader is luke skywalker's father: Noooooooo</span>
+			</p>
+			<p class="spoiler" style="padding: 40px; background: lightblue; text-align: center;">
+				<span>Luke and Leia are siblings! Ew.</span>
+			</p>	
+			<pre>
+	// hide spoiler
+	$(".spoiler span").hide();
+	// add a button
+	$(".spoiler").append("&lt;button>Reveal Spoiler&lt;/button>")
+	// when button is pressed
+	$(".spoiler button").click(function(){
+		// show spoiler next to the button
+		// $(".spoiler span").show();
+		$(this).prev().show();
+		// get rid of button
+		$(this).remove();				
+			</pre>		
+  	</div>
+  </div>
+  <hr>
+  <div class="row">
+  	<div class="col">
+  		<h2>Create a simple Lightbox</h2>
+  		<div id="lightbox">
+				<%= link_to image_tag('https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/09/12/11/naturo-monkey-selfie.jpg'), 'https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/09/12/11/naturo-monkey-selfie.jpg', alt: 'Image 1' %>
+				<%= link_to image_tag('https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/09/12/11/naturo-monkey-selfie.jpg'), 'https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/09/12/11/naturo-monkey-selfie.jpg', alt: 'Image 2' %>
+				<%= link_to image_tag('https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/09/12/11/naturo-monkey-selfie.jpg'), 'https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/09/12/11/naturo-monkey-selfie.jpg', alt: 'Image 3' %>
+				<%= link_to image_tag('https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/09/12/11/naturo-monkey-selfie.jpg'), 'https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/09/12/11/naturo-monkey-selfie.jpg', alt: 'Image 4' %>
+				<%= link_to image_tag('screen.png'), "https://www.lynda.com" %>
+  		</div>
+  		<pre>
+	//LIGHTBOX
+	// creating a variable with $ sign to hole jquery object
+	var $overlay = $('&lt;div id="overlay">&lt;/div>');
+	var $image = $("&lt;img>");
+	var $caption = $("&lt;p>&lt;/p>");
+
+		// an image
+	$overlay.append($image);
+		// a caption	
+	$overlay.append($caption);		
+
+	// add overlay
+	$("body").append($overlay);
+
+	// capture the click event on the link to an image
+	$('#lightbox a').click(function(e){
+		// stops the a tag link follow through
+		e.preventDefault();
+
+		var imageLocation = $(this).attr("href");
+		// update overlay with the image linked in the link
+		$image.attr("src", imageLocation);
+
+		// console.log(imageLocation);
+		var imageAlt = $(this).attr("alt");
+		// console.log(imageAlt);
+		var cpationText = $(this).children("img").attr("alt");
+		$caption.text(imageAlt)
+
+		// show the overlay
+		$overlay.fadeIn(150);
+	});
+		// added the alt caption
+
+	// when overlay is clicked to close
+	$("#overlay").click(function(){
+		// hide the overlay		
+		$overlay.fadeOut(150);
+	});  			
+  		</pre>
+  		<h4>And the CSS</h4>
+  		<pre>
+#lightbox img {
+	width: 40%;
+	margin: 10px;
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0; 
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+  text-align: center; /* centers the image and text */
+}
+
+#overlay p {
+  color: white;
+  font-size: 1.2em;
+}
+
+#overlay img {
+	margin-top: 10%;
+}  			
+  		</pre>
+  	</div>
+	</div>
+	<hr>
+	<div class="row">
+		<h2>Creating a mobile drop down menu</h2>
+		<div id="menu">
+			<ul>
+				<li class="selected"><a href="#">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Contact</a></li>
+				<li><a href="#">Support</a></li>
+				<li><a href="#">FAQs</a></li>
+				<li><a href="#">Events</a></li>
+				<li><%= link_to "Rails home", root_path %></li>
+			</ul>
+
+		</div>
+		<pre>
+	// create a select and append to menu
+	var $select = $("&lt;select>&lt;/select>");
+	$("#menu").append($select);
+
+	// cycle over menu links
+	$("#menu a").each(function(){
+		var $anchor = $(this);
+		//create an option
+		var $option = $("&lt;option>&lt;/option>");
+		// deal with selected options depending on current page
+
+		if($anchor.parent().hasClass("selected")) {
+			$option.prop("selected", true);
+		}
+		// options value is the href
+		$option.val($anchor.attr("href"));
+		// options text is the text of link
+		$option.text($anchor.text()); 
+		// append option to select
+		$select.append($option);
+	});
+		
+	// create button 
+	var $button = $("&lt;button>Go&lt;/button>");
+	$("#menu").append($button);
+	// bind click to button 
+	$button.click(function(){
+		// go to click to go to selects location
+		window.location = $select.val();
+	});
+
+	$select.change(function(){
+		window.location = $select.val();
+	});			
+		</pre>
+		<h3>And the CSS</h3>
+		<pre>
+/*Creating a drop down menu for mobile*/
+
+#menu ul li {
+  display: inline-block;
+  padding: 20px;
+}
+
+/* modify css to hide links on small widths and show button and select
+also hides select and btton on larger widths and shows links */
+
+@media (min-width: 320px) and (max-width: 568px) {
+  #menu ul {
+    display: none;
+  }
+}
+
+@media (min-width: 568px) {
+  #menu select, #menu button {
+    display: none;
+  }
+}			
+		</pre>
+	</div> <!-- row -->
+
+	<div class="row">
+		<div class="col"><h2>Password confirmation</h2></div>
+		<div class="col">
+			<form action="#" method="post">
+				<p>
+					<label for="username">Username</label>
+					<input type="text" id="username" name="username">
+				</p>
+				<p>
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password">
+					<span class="hints">Enter a password longer than 8 characters</span>
+				</p>
+				<p>
+					<label for="confirm_password">Confirm Password</label>
+					<input type="password" id="confirm_password" name="confirm_password">
+					<span class="hints">Please confirm your password</span>
+				</p>
+				<p>
+					<input type="submit" value="SUBMIT" id="submit">
+				</p>
+			</form>			
+		</div>
+		<pre>
+	// password confirmation
+	var $password = $("#password");
+	var $confirmPassword = $("#confirm_password");
+	// hide span hints
+	$("form span").hide();
+
+	function isPasswordValid() {
+		return $password.val().length > 8;
+	}
+
+	function arePasswordsMatching() {
+		return $password.val() === $confirmPassword.val();
+	}
+	
+	function canSubmit() {
+		return isPasswordValid() &amp;&amp; arePasswordsMatching();
+	}
+
+	function passwordEvent(){
+		// find out if password is valid
+		if(isPasswordValid()) {
+			// hide hint if valid 
+			$password.next().hide();
+		} else {
+			// else show hint		
+			$password.next().show();
+		}				
+	}
+
+	function confirmPasswordEvent(){
+		// find out if password and confirmation match
+		if(arePasswordsMatching()) {
+			// hide hint if matched
+			$confirmPassword.next().hide();
+		} else {
+			// else show hint
+			$confirmPassword.next().show();
+		}						
+	}
+
+	function enableSubmitEvent() {
+		$("#submit").prop("disabled", !canSubmit())
+	}
+	
+	// when event happens on password input
+	$password.focus(passwordEvent).keyup(passwordEvent)
+						.keyup(confirmPasswordEvent).keyup(enableSubmitEvent);
+
+	// when event happens on confirmation
+	$confirmPassword.focus(confirmPasswordEvent).keyup(confirmPasswordEvent).keyup(enableSubmitEvent);
+
+	// calls the function which on page load returns the button as disabled
+	enableSubmitEvent();
+			
+		</pre>
+		<h3>And the css</h3>
+		<pre>
+/* Password confirmation */
+
+form span.hints {
+  color: blue;
+  display: block;
+  font-size: .8em;
+}			
+		</pre>
+	</div> <!-- row password confirmation -->
+</div> <!-- container -->	
+
+<script>
+	// hide spoiler
+	$(".spoiler span").hide();
+	// add a button
+	$(".spoiler").append("<button>Reveal Spoiler</button>")
+	// when button is pressed
+	$(".spoiler button").click(function(){
+		// show spoiler next to the button
+		// $(".spoiler span").show();
+		$(this).prev().show();
+		// get rid of button
+		$(this).remove();			
+	});		
+</script>
+
+<script>
+	//LIGHTBOX
+	// creating a variable with $ sign to hole jquery object
+	var $overlay = $('<div id="overlay"></div>');
+	var $image = $("<img>");
+	var $caption = $("<p></p>");
+
+		// an image
+	$overlay.append($image);
+		// a caption	
+	$overlay.append($caption);		
+
+	// add overlay
+	$("body").append($overlay);
+
+	// capture the click event on the link to an image
+	$('#lightbox a').click(function(e){
+		// stops the a tag link follow through
+		e.preventDefault();
+
+		var imageLocation = $(this).attr("href");
+		// update overlay with the image linked in the link
+		$image.attr("src", imageLocation);
+
+		// console.log(imageLocation);
+		var imageAlt = $(this).attr("alt");
+		// console.log(imageAlt);
+		var cpationText = $(this).children("img").attr("alt");
+		$caption.text(imageAlt)
+
+		// show the overlay
+		$overlay.fadeIn(150);
+	});
+		// added the alt caption
+
+	// when overlay is clicked to close
+	$("#overlay").click(function(){
+		// hide the overlay		
+		$overlay.fadeOut(150);
+	});
+</script>
+
+<script>
+	// create a select and append to menu
+	var $select = $("<select></select>");
+	$("#menu").append($select);
+
+	// cycle over menu links
+	$("#menu a").each(function(){
+		var $anchor = $(this);
+		//create an option
+		var $option = $("<option></option>");
+		// deal with selected options depending on current page
+
+		if($anchor.parent().hasClass("selected")) {
+			$option.prop("selected", true);
+		}
+		// options value is the href
+		$option.val($anchor.attr("href"));
+		// options text is the text of link
+		$option.text($anchor.text()); 
+		// append option to select
+		$select.append($option);
+	});
+		
+	// create button 
+	var $button = $("<button>Go</button>");
+	$("#menu").append($button);
+	// bind click to button 
+	$button.click(function(){
+		// go to click to go to selects location
+		window.location = $select.val();
+	});
+
+	$select.change(function(){
+		window.location = $select.val();
+	});
+</script>
+
+<script>
+	// password confirmation
+	var $password = $("#password");
+	var $confirmPassword = $("#confirm_password");
+	// hide span hints
+	$("form span").hide();
+
+	function isPasswordValid() {
+		return $password.val().length > 8;
+	}
+
+	function arePasswordsMatching() {
+		return $password.val() === $confirmPassword.val();
+	}
+	
+	function canSubmit() {
+		return isPasswordValid() && arePasswordsMatching();
+	}
+
+	function passwordEvent(){
+		// find out if password is valid
+		if(isPasswordValid()) {
+			// hide hint if valid 
+			$password.next().hide();
+		} else {
+			// else show hint		
+			$password.next().show();
+		}				
+	}
+
+	function confirmPasswordEvent(){
+		// find out if password and confirmation match
+		if(arePasswordsMatching()) {
+			// hide hint if matched
+			$confirmPassword.next().hide();
+		} else {
+			// else show hint
+			$confirmPassword.next().show();
+		}						
+	}
+
+	function enableSubmitEvent() {
+		$("#submit").prop("disabled", !canSubmit())
+	}
+	
+	// when event happens on password input
+	$password.focus(passwordEvent).keyup(passwordEvent)
+						.keyup(confirmPasswordEvent).keyup(enableSubmitEvent);
+
+	// when event happens on confirmation
+	$confirmPassword.focus(confirmPasswordEvent).keyup(confirmPasswordEvent).keyup(enableSubmitEvent);
+
+	// calls the function which on page load returns the button as disabled
+	enableSubmitEvent();
+
+</script>

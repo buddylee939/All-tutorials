@@ -1,0 +1,371 @@
+<div class="container">
+	<div class="row">
+		<div class="col ">			
+			<header>
+				<h1>Traversy Media jQuery Crash Course - Youtube</h1>	
+			</header>
+			<h2 id="heading1">Heading One</h2>
+			<p id="para1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. <span>Doloremque sunt porro</span> aliquid voluptas veritatis accusantium debitis quia rem, cumque laudantium ad, tenetur corporis.</p>
+			<h2 class="heading2">Heading One</h2>
+			<p class="para2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. <span>Doloremque sunt porro</span> aliquid voluptas veritatis accusantium debitis quia rem, cumque laudantium ad, tenetur corporis.</p>			
+		</div>
+		<div class="col">
+			<ul id="list">
+				<li>list</li>
+				<li>list</li>
+				<li>list</li>
+				<li>list</li>
+				<li>list</li>
+				<li>list</li>
+				<li>list</li>
+				<li>list</li>
+			</ul>
+			<input type="button" value="Button 2">
+			<input type="submit" value="Submit 2">
+			<input type="text">
+		</div>
+		<div class="col">
+			<a href="https://google.com">Google</a> <br>
+			<a href="https://twitter.com">Twitter</a>
+		</div>
+	</div>
+</div>
+<hr>
+<div class="container">
+	<div class="row">
+		<h2>EVENTS</h2>
+		<div class="col">
+			<button id="btn1">Button 1</button>
+			<button id="btn2">Button 2</button>
+			<p class="para1">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores expedita ab, doloremque voluptatibus veniam, hic atque corrupti! Labore distinctio vitae, officia quis iure!
+			</p>
+			<h3 id="coords"></h3>
+		</div>
+		<div class="col">
+			<form action="" id="myForm">
+				<label for="">Name</label><br>
+				<input type="text" id="name" name="name"><br>
+				<label for="">Email</label>
+				<input type="email" id="email" name="email"><br>
+				<label for="">Gender</label> <br>
+				<select name="gender" id="gender">
+					<option value="male">Male</option>
+					<option value="female">Female</option>
+				</select><br>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h2>DOM Manipulation</h2>
+			<button id="btn3">Button 3</button>
+			<p class="para3">Lorem ipsum dolor sit.</p>
+			<p class="para4 someClass">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+			<div id="blankDiv"></div>
+		</div>
+		<div class="col">
+			<input type="text" id="newItem">
+			<ul id="toAppend">
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+			</ul>
+			<a href="https://google.com" class="myLink">Google</a>
+			<ul id="users">
+				
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<h2>Effects and Animations</h2>
+		<div class="col">
+			<button id="btnFadeOut">Fade Out</button>
+			<button id="btnFadeIn">Fade In</button>
+			<button id="btnFadeTog">Fade Toggle</button>
+			<hr>
+			<div id="box">
+				<h1>Hello World</h1>
+			</div>			
+		</div>
+		<div class="col">
+			<button id="btnSlideUp">Slide Up</button>
+			<button id="btnSlideDown">Slide Down</button>
+			<button id="btnSlideTog">Slide Toggle</button>
+			<button id="btnStop">Stop</button>
+			<hr>
+			<div id="boxBlue">
+				<h1>Hello World</h1>
+			</div>				
+		</div>
+		<div class="col">
+			<button id="moveLeft">Move Left</button>
+			<button id="moveRight">Move Right</button>
+			<button id="moveAround">Move Around</button>
+			<div id="boxRed">
+				<h1>Hello World</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<h2>AJAX</h2>
+		<h3>These posts are being pulled in from https://jsonplaceholder.typicode.com/posts</h3>
+		<div id="result"></div>
+	</div>
+</div>
+<script>
+	// $('h1').hide();
+	// $('#heading1').hide();
+	// $('.heading2').hide();
+	// $('p span').css("color", "red");
+	// $('ul#list li:first').css("color", "red");
+	// $('ul#list li:last').css("color", "green");
+	// $('ul#list li:even').css("background", "yellow");
+	// $('ul#list li:odd').css("background", "#ccc");
+	// $('ul#list li:nth-child(3n)').css("list-style", "circle");
+
+	// $(':button').hide();
+	// $(':submit').hide();
+	// $(':text').hide();
+
+	// $('[href]').css('color', 'red');
+	// $('a[href="https://twitter.com"]').css('color', 'blue');
+	// $('*').hide();
+</script>
+
+<script>
+	// EVENTS
+	// $('#btn1').click(function(){
+	// 	alert('button clicked');
+	// });
+	// $('#btn1').on('click', function(){
+	// 	alert('button clicked');
+	// });
+	// $('#btn1').click(function(){
+	// 	$('.para1').hide();
+	// });
+	// $('#btn2').click(function(){
+	// 	$('.para1').show();
+	// });	
+	// $('#btn1').click(function(){
+	// 	$('.para1').toggle();
+	// });
+	// $('#btn1').dblclick(function(){
+	// 	$('.para1').toggle();
+	// });
+
+	// hover is a combination of mouse enter and leave
+	// $('#btn1').hover(function(){
+	// 	$('.para1').toggle();
+	// });
+	// $('#btn1').on('mouseenter', function(){
+	// 	$('.para1').toggle();
+	// });
+	// $('#btn1').on('mouseleave', function(){
+	// 	$('.para1').toggle();
+	// });	
+	// $('#btn1').on('mousemove', function(){
+	// 	$('.para1').toggle();
+	// });	
+	// $('#btn1').on('mousedown', function(){
+	// 	$('.para1').toggle();
+	// });	
+	// $('#btn1').on('mouseup', function(){
+	// 	$('.para1').toggle();
+	// });		
+
+	// $('#btn1').click(function(e){
+	// 	console.log(e);
+		// alert(e.currentTarget.innerHTML);
+		// alert(e.currentTarget.outerHTML);
+		// alert(e.currentTarget.id);
+	// });
+
+	// $(document).on('mousemove', function(e){
+	// 	$('#coords').html('Coords: Y: ' + e.clientY + ' X: ' + e.clientX);
+	// });
+
+	// $('input').focus(function(){
+	// 	$(this).css('background', 'pink');
+	// });
+	// $('input').blur(function(){
+	// 	$(this).css('background', 'white');
+	// });	
+
+	// $('input').keyup(function(e){
+	// 	// console.log('keyup');
+	// 	console.log(e.target.value);
+	// });
+
+	// $('select#gender').change(function(e){
+	// 	// alert('Changed');
+	// 	// console.log(e);
+	// 	alert(e.target.value);
+	// });
+
+	// $('#myForm').submit(function(e){
+	// 	e.preventDefault();
+	// 	var name = $('input#name').val();
+	// 	console.log('Submitted' + name);
+	// });
+</script>
+
+<script>
+	// $('p.para3').css('color', 'red');
+	// // to do multiple css lines, create an object with {}
+	// $('p.para3').css({
+	// 	background: '#ccc',
+	// 	color: 'yellow',
+	// 	'font-size': '1.3em',
+	// 	'font-style': 'italic'
+	// });
+	// $('p.para4').addClass('myClass');
+	// $('p.para4').removeClass('someClass');
+	// $('#btn3').click(function(){
+	// 	$('p.para4').toggleClass('bigText');
+	// });
+	// // $('#blankDiv').text('Hello World');
+	// $('#blankDiv').html('<h3>Hello World</h3>');
+	// // alert($('#blankDiv').text());
+	// $('#toAppend').append('<li>Appended</li>');
+	// $('#toAppend').prepend('<li>Prepended</li>');
+	// // $('.para3').appendTo('.para4');
+	// // $('.para4').prependTo('.para3');
+	// $('#toAppend').before('<h4>I am before</h4>');
+	// $('#toAppend').after('<h4>I am after</h4>');
+	// // $('#toAppend').empty();
+	// // $('#toAppend').detach();
+	// $('.myLink').attr('target', '_blank');
+	// // alert($('.myLink').attr('href'));
+	// // $('.myLink').removeAttr('href');
+
+	// $('.para3').wrap('<div>');
+	// // $('p').wrapAll('<div>');
+
+	// $('#newItem').keyup(function(e){
+	// 	var code = e.which;
+	// 	if(code == 13){
+	// 		e.preventDefault();
+	// 		$('#toAppend').append('<li>'+ e.target.value + '</li>');
+	// 	}
+	// });
+
+	// var myArr = ['Brad','Kelley','Nate','Jose']
+	// $.each(myArr, function(i, val){
+	// 	$('#users').append('<li>'+val+'</li>');
+	// });
+
+	// var newArr = $('#toAppend li').toArray();
+	// console.log(newArr);
+	// $.each(newArr, function(i, val){
+	// 	console.log(val.innerHTML);
+	// });	
+</script>
+
+<script>
+	$('#box').css({
+		background: '#333',
+		color: '#fff',
+		width: '500px',
+		height: '190px',
+		padding: '40px',
+		'text-align': 'center'
+	});
+	$('#boxBlue').css({
+		background: 'blue',
+		color: '#fff',
+		width: '500px',
+		height: '190px',
+		padding: '40px',
+		'text-align': 'center'
+	});	
+	$('#boxRed').css({
+		background: 'red',
+		color: '#fff',
+		width: '500px',
+		height: '190px',
+		padding: '40px',
+		'text-align': 'center',
+		position: 'relative'
+	});
+
+	$('#btnFadeOut').click(function(){
+		// $('#box').fadeOut(10000);
+		$('#box').fadeOut(10000, function(){
+			alert('what happened to the box');
+		});
+	});
+	$('#btnFadeIn').click(function(){
+		// $('#box').fadeOut(10000);
+		$('#box').fadeIn('slow');
+	});	
+	$('#btnFadeTog').click(function(){
+		// $('#box').fadeOut(10000);
+		$('#box').fadeToggle('slow');
+	});		
+
+	$('#btnSlideUp').click(function(){
+		$('#boxBlue').slideUp(5000);
+	});
+	$('#btnSlideDown').click(function(){
+		$('#boxBlue').slideDown(5000);
+	});	
+	$('#btnSlideTog').click(function(){
+		$('#boxBlue').slideToggle();
+	});	
+	$('#btnStop').click(function(){
+		$('#boxBlue').stop();
+	});		
+	$('#moveRight').click(function(){
+		$('#boxRed').animate({
+			left: 500,
+			height: '500px'
+		});
+	});
+	$('#moveLeft').click(function(){
+		$('#boxRed').animate({
+			left: 0,
+			height: '190px'
+		});
+	});	
+
+	$('#moveAround').click(function(){
+		var boxRed = $('#boxRed');
+		boxRed.animate({
+			left: 300
+		});
+		boxRed.animate({
+			top: 300
+		});
+		boxRed.animate({
+			left: 0,
+			top: 300
+		});		
+		boxRed.animate({
+			left: 0,
+			top: 0
+		});		
+	});
+</script>
+
+<script>
+	$.ajax({
+		method: 'GET',
+		url: 'https://jsonplaceholder.typicode.com/posts',
+		dataType: 'json',
+	}).done(function(data){
+		console.log(data);
+		$.map(data, function(post, i){
+			$('#result').append('<h3>'+post.title+'</h3><p>'+post.body+'</p>')
+		});
+	});
+</script>

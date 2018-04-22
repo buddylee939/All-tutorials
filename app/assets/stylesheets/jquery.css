@@ -1,0 +1,64 @@
+#lightbox img {
+	width: 40%;
+	margin: 10px;
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0; 
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+  text-align: center; /* centers the image and text */
+}
+
+#overlay p {
+  color: white;
+  font-size: 1.2em;
+}
+
+#overlay img {
+	margin-top: 10%;
+}
+
+/*Creating a drop down menu for mobile*/
+
+#menu ul li {
+  display: inline-block;
+  padding: 20px;
+}
+
+/* modify css to hide links on small widths and show button and select
+also hides select and btton on larger widths and shows links */
+
+@media (min-width: 320px) and (max-width: 568px) {
+  #menu ul {
+    display: none;
+  }
+}
+
+@media (min-width: 568px) {
+  #menu select, #menu button {
+    display: none;
+  }
+}
+
+/* Password confirmation */
+
+form span.hints {
+  color: blue;
+  display: block;
+  font-size: .8em;
+}
+
+/* FROM TRAVERSY JQUERY CRASH COURSE */
+
+.bigText {
+  font-size: 2em;
+}
