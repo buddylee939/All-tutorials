@@ -80,8 +80,40 @@ while(counter < 10){
 	</div> <!-- row -->
 	<div class="row">
 		<div class="col">
-			<h3>Bojects</h3>
-
+			<h3>Objects</h3>
+			<p>Simplest way to thing of objects is: objects have properties and methods: a property is a variable that belongs to the object, a method is something the object can do or can be done to the object</p>
+			<p>Javascript objects let you store data in a 'key-value' pair, or 'property-value'</p>
+			<p>Basic object, accessing the values with either the . or ['']</p>
+			<pre>
+	var person = {
+		name: 'Sarah',
+		country: 'US',
+		age: 35,
+		treehouseStudend: true,
+		skills: ['Java', 'HTML', 'CSS']
+	}
+	alert(person.name);
+	alert(person['name']);				
+			</pre>
+			<p>The 'For In' loop is only available to objects</p>
+			<p>Here we create an object 'person', person.passport property is added after creation, for in loop to loop through the keys and values, 'key' is just a variable, it could be 'prop' or whatever, the key, ':' prints out on same line with a type of concatenation, the person["name"] only prints out that property value every time</p>
+<pre>
+	var person = {
+		name: 'Sarah',
+		country: 'US',
+		age: 35,
+		treehouseStudent: true,
+		skills: ['Java', 'HTML', 'CSS']
+	}
+	person.passport = "US";
+	
+	for (var key in person){
+		console.log(key);
+		console.log(person[key]);
+		console.log(key, ': ', person[key]);		
+		console.log(person["name"]);
+	}	
+</pre>
 		</div>
 	</div>
 </div> <!-- container -->
@@ -164,6 +196,7 @@ while(counter < 10){
 
 <script>
 	// to see if a grocery store has certain products
+
 /*
 	var inStock = ["apples", "eggs", 'milk', 'cookies', 'cheese', 'bread', 'lettuce', 'carrot', 'broccoli', 'pizza', 'potato', 'crackers', 'onion', 'tofu', 'frozen dinner', 'cucumber'];
 	var search;
@@ -187,5 +220,30 @@ while(counter < 10){
 			}
 		}
 	}
-*?	
+*/
+</script>
+
+<script>
+	var person = {
+		name: 'Sarah',
+		country: 'US',
+		age: 35,
+		treehouseStudent: true,
+		skills: ['Java', 'HTML', 'CSS']
+	}
+	// alert(person.name);
+	// alert(person['name']);
+	person.passport = "US";
+	
+	function getPerson(){
+		return person;
+	}
+	// console.log(getPerson().age);
+
+	for (var key in person){
+		// console.log(key);
+		// console.log(person[key]);
+		// console.log(key, ': ', person[key]);
+		console.log(person["name"]);
+	}
 </script>
