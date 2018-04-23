@@ -61,9 +61,30 @@ while(counter < 10){
 		<div class="col">
 			<h3>For Loops</h3>
 			<p>Are good when you need something to run multiple times right away</p>
+			<div id="forLoop"></div>
 		</div>
 	</div>
-</div>
+	<div class="row">
+		<div class="col">
+			<h3>Arrays</h3>
+			<p>MyArray.push() adds an item at the end</p>		
+			<p>MyArray.unshift() adds an item at the beginning</p>
+			<p>MyArray.pop() takes the last item out and can return it if needed</p>
+			<p>MyArray.shift() takes the first item out and can return it if needed</p>
+			<p>MyArray.join(', ') joins the array with a comma into a string</p>
+			<p>MyArray.concat joins 2 arrays</p>
+			<p>MyArray.indexOf('Apple'), returns the index of apple if in the array, if not it returns a -1</p>
+			<p>2 dimensional arrays, are an array of arrays</p>
+			<div id="inStore"></div>
+		</div>
+	</div> <!-- row -->
+	<div class="row">
+		<div class="col">
+			<h3>Bojects</h3>
+
+		</div>
+	</div>
+</div> <!-- container -->
 
 
 <script>
@@ -95,40 +116,76 @@ while(counter < 10){
 </script>
 
 <script>
-	var upper = 10000;
-	var randomNumber = getRandomNumber(upper);
-	var guess;
-	var attempts = 0;
-	function getRandomNumber(upper){
-		return Math.floor(Math.random() * upper ) + 1;
-	}
-	while (guess !== randomNumber){
-		guess = getRandomNumber(upper);
-		attempts += 1;
-	}
-	var answer = "<p>The random number was: " + randomNumber + "</p>";
-	answer += "<p>It too the computer " + attempts + " attempts to get it right.</p>";
-	document.getElementById("answer").innerHTML = answer;
+	// var upper = 10000;
+	// var randomNumber = getRandomNumber(upper);
+	// var guess;
+	// var attempts = 0;
+	// function getRandomNumber(upper){
+	// 	return Math.floor(Math.random() * upper ) + 1;
+	// }
+	// while (guess !== randomNumber){
+	// 	guess = getRandomNumber(upper);
+	// 	attempts += 1;
+	// }
+	// var answer = "<p>The random number was: " + randomNumber + "</p>";
+	// answer += "<p>It too the computer " + attempts + " attempts to get it right.</p>";
+	// document.getElementById("answer").innerHTML = answer;
 </script>
 
 <script>
-	var randomNumber = getRandomNumber(10);
-	var guess;
-	var guessCount = 0;
-	var correctGuess = false;
+	// var randomNumber = getRandomNumber(10);
+	// var guess;
+	// var guessCount = 0;
+	// var correctGuess = false;
 
-	function getRandomNumber(upper){
-		var num = Math.floor(Math.random() * upper ) + 1;
-		return num;
-	}	
-	do {
-		guess = prompt('I am thinking of a number between 1 and 10. What is it?');
-		guessCount += 1;
-		if (parseInt(guess) === randomNumber) {
-			correctGuess = true;
+	// function getRandomNumber(upper){
+	// 	var num = Math.floor(Math.random() * upper ) + 1;
+	// 	return num;
+	// }	
+	// do {
+	// 	guess = prompt('I am thinking of a number between 1 and 10. What is it?');
+	// 	guessCount += 1;
+	// 	if (parseInt(guess) === randomNumber) {
+	// 		correctGuess = true;
+	// 	}
+	// } while (!correctGuess)
+	// var correctAnswer = '<p>You guess the number!</p>';
+	// correctAnswer += '<p>It took you ' + guessCount + ' tries to guess the number ' + randomNumber + '</p>';
+	// document.getElementById('guess').innerHTML = correctAnswer;
+</script>
+
+<script>
+	var html = '';
+	for (var i = 1; i <= 10; i++){
+		html += '<div>' + i + '</div>';
+	}
+	document.getElementById("forLoop").innerHTML = html;
+</script>
+
+<script>
+	// to see if a grocery store has certain products
+/*
+	var inStock = ["apples", "eggs", 'milk', 'cookies', 'cheese', 'bread', 'lettuce', 'carrot', 'broccoli', 'pizza', 'potato', 'crackers', 'onion', 'tofu', 'frozen dinner', 'cucumber'];
+	var search;
+
+	function print(message){
+		var paragraph;
+		document.getElementById("inStore").innerHTML = message;
+	}
+	while (true){
+		search = prompt('Search for a product in our store. type "list" to show all of the produce and "quit" to exit');
+		search = search.toLowerCase();
+		if (search === 'quit'){
+			break;
+		} else if (search === 'list'){
+			print(inStock.join(', '));
+		} else {
+			if (inStock.indexOf(search) > -1) {
+				print('Yes, we have ' + search + ' in the store.');
+			} else {
+				print(search + ' is not in stock');
+			}
 		}
-	} while (!correctGuess)
-	var correctAnswer = '<p>You guess the number!</p>';
-	correctAnswer += '<p>It took you ' + guessCount + ' tries to guess the number ' + randomNumber + '</p>';
-	document.getElementById('guess').innerHTML = correctAnswer;
+	}
+*?	
 </script>
