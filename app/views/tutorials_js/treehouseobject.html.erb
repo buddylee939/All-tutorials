@@ -1,0 +1,156 @@
+<div class="container">
+  <div class="row">
+  <div class="col">
+    <h1>Object Oriented Javascript - Treehouse</h1>
+    <hr>
+    <h2>Native Objects</h2>
+    <p>Number, string, array, boolean, object</p>
+    <h2>Host Objects in the Browser</h2>
+    <p>document, console, element, </p>
+    <h2>Your own objects</h2>
+    <p>anything you like and create</p>  
+    <div id="placeholder"></div>
+    <button id="button">Roll Dice</button>
+    <hr>
+    <h2>Constructor Functions</h2>
+    <hr>
+    <h2>Playlist Project</h2>
+    <div>
+      <h3>Treetunes</h3>
+      <ol id="playlist"></ol>
+      <button id="play">Play</button>
+      <button id="next">Next</button>
+      <button id="stop">Stop</button>
+    </div>
+  </div>
+  </div>
+</div>
+
+<script>
+
+  var dice = {
+    sides: 6,
+    roll: function (){
+      var randomNumber = Math.floor(Math.random() * this.sides) + 1;
+      // console.log(randomNumber);
+      // printNumber(randomNumber);  
+      return randomNumber;
+    }
+  }
+  var dice10 = {
+    sides: 10,
+    roll: function (){
+      var randomNumber = Math.floor(Math.random() * this.sides) + 1;
+      console.log(randomNumber);
+    }
+  }  
+  function printNumber(number){
+    var placeholder = document.getElementById("placeholder");
+    placeholder.innerHTML = number;
+  }
+  var button = document.getElementById("button");
+  button.onclick = function(){
+    // dice.roll();
+    var result = dice.roll();
+    printNumber(result);    
+  }
+</script>
+<script>
+  var calculator = {
+    sum: 0,
+    add: function(value){
+      this.sum += value;
+    },
+    clear: function(){
+      this.sum = 0;
+    },
+    equals: function(){
+      return this.sum;
+    }
+  }
+</script>
+<script>
+  // here we create a method on the dice object by having a property with a function
+  var newDice = {
+    roll: function diceRoll(){
+      var sides = 6;
+      var randomNumber = Math.floor(Math.random() * sides) + 1;
+      console.log(randomNumber);
+    }
+  }
+</script>
+<script>
+  // constructor functions
+  function Contact(name, email){
+    this.name = name;
+    this.email = email;
+  }
+  function MyDiceRoll(sides){
+    this.sides = sides;  
+  }
+  MyDiceRoll.prototype.roll = function( ){
+    var randomNumber = Math.floor(Math.random() * sides) + 1;
+    return randomNumber;
+  }
+</script>
+<script>
+  // playlist js
+  function Palylist(){
+    this.songs = [];
+    this.nowPlayingIndex = 0;
+  }
+  Playlist.prototype.add = function(song){
+    this.songs.push(song);
+    
+  }
+  Playlist.prototype.play = function(){
+    var currentSong = this.songs[this.nowPlayingIndex];
+    currentSong.play();
+  }
+  Playlist.prototype.stop = function(){
+    var currentSong = this.songs[this.nowPlayingIndex];
+    currentSong.stop();        
+  }
+  Playlist.prototype.next = function(){
+    this.stop();
+    this.nowPlayingIndex++;
+    if(this.nowPlayingIndex === this.songs.length){
+      this.nowPlayingIndex = 0;
+    }
+    this.play();
+  }
+  Playlist.prototype.renderIn = function(){
+    
+  }
+
+  // songs js
+  function Song(title, artist, duration){
+    this.title = title;
+    this.artist = artist;
+    this.duration = duration;
+    this.isPlaying = false;
+
+  }
+  Song.prototype.play = function(){
+    this.isPlaying = true;
+  }
+  Song.prototype.stop = function(){
+    this.isPlaying = false;
+  }
+  Song.prototype.toHTML = function(){
+    var htmlString = '<li';
+    htmlString += ' class="current"';
+    htmlString += '>';
+    htmlString += ' - ';
+    htmlString += this.artist;
+    htmlString += '<span'
+  }
+
+  // app js
+  var playlist = new Palylist();
+  var hereComesTheSun = new Song("Here Comes the Sun", "The Beatles", "2:54");
+  var walkingOnSunshine = new Song("Walking on Sunshine", "Katrina", "3:43");
+
+  playlist.add(hereComesTheSun);
+  playlist.add(walkingOnSunshine);
+</script>

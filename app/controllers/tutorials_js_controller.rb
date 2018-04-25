@@ -13,5 +13,8 @@ class TutorialsJsController < ApplicationController
   end    
 
   def traversyjquerycrashcourse
-  end      
+  end    
+
+  def treehouseobject
+  end  
 end
