@@ -7,3 +7,70 @@ pre {
 	padding: 10px;
 }
 
+.todo-list input, 
+.todo-list label, 
+ {
+	display: block;
+	margin: 10px 0;
+}
+.todo-list ul {
+	margin: 0;
+	padding: 0;
+	li {
+		list-style: none;
+	}	
+}
+
+#incomplete-tasks input[type=text],
+#completed-tasks input[type=text] {
+	display: none;
+}
+
+.editMode label {
+	display: none;
+}
+
+.editMode input[type=text] {
+	display: block !important;
+}
+
+// #add-new-task input,
+// #add-new-task label,
+// #add-new-task button,
+// #incomplete-tasks input,
+// #incomplete-tasks label,
+// #incomplete-tasks button,
+// #completed-tasks input,
+// #completed-tasks label,
+// #completed-tasks button {
+// 	display: inline-block;
+// 	margin-right: 10px;
+// }
+
+#add-new-task button,
+#incomplete-tasks button,
+#completed-tasks button {
+  border: 1px solid #eee;
+  padding: 8px;
+  border-radius: 5px;	
+  cursor: pointer;
+}
+
+#add-new-task button:focus,
+#incomplete-tasks button:focus,
+#completed-tasks button:focus {
+  outline:0;
+}
+
+#incomplete-tasks li,
+#completed-tasks li {
+	margin-bottom: 20px;
+}
+
+#add-new-task input,
+#incomplete-tasks input,
+#completed-tasks input {
+  border: 1px solid #eee;
+  padding: 7px;	
+}
+
