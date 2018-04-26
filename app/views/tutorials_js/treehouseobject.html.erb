@@ -22,7 +22,25 @@
       <button id="next">Next</button>
       <button id="stop">Stop</button>
     </div>
+    <hr>    
   </div>
+  </div>
+  <hr>
+  <div class="col">
+    <h3>Question and Answer program</h3>
+    <div id="quiz" class="centered grid__col--8">
+      <h3>Awesome Quiz</h3>
+      <h2 id="question" class="headline-secondary--grouped"></h2>
+      <p id="choice0"></p>
+      <button id="guess0" class="btn--default">Select Answer</button>
+
+      <p id="choice1"></p>
+      <button id="guess1" class="btn--default">Select Answer</button>      
+
+      <div class="footer">
+        <p id="progress">Question x of y</p>
+      </div>
+    </div>    
   </div>
 </div>
 
@@ -95,7 +113,7 @@
 </script>
 <script>
   // playlist js
-  function Palylist(){
+  function Playlist(){
     this.songs = [];
     this.nowPlayingIndex = 0;
   }
@@ -119,38 +137,196 @@
     }
     this.play();
   }
-  Playlist.prototype.renderIn = function(){
+  Playlist.prototype.renderInElement = function(list){
+    list.innerHTML = "";
+    for(var i = 0; i < this.songs.length; i++){
+      list.innerHTML += this.songs[i].toHTML();
+    }
     
   }
 
-  // songs js
-  function Song(title, artist, duration){
+  // media js
+  function Media(title, duration){
     this.title = title;
-    this.artist = artist;
     this.duration = duration;
     this.isPlaying = false;
-
   }
-  Song.prototype.play = function(){
+  Media.prototype.play = function(){
     this.isPlaying = true;
   }
-  Song.prototype.stop = function(){
+  Media.prototype.stop = function(){
     this.isPlaying = false;
+  }  
+
+  // movie js
+  function Movie(title, year, duration){
+    Media.call(this, title, duration);
+    this.year = year;
   }
+
+  Movie.prototype = Object.create(Media.prototype);
+
+  Movie.prototype.toHTML = function(){
+    var htmlString = '<li';
+    if (this.isPlaying){
+      htmlString += ' class="current"';      
+    }
+    htmlString += '>';
+    htmlString += this.title;
+    htmlString += ' (';
+    htmlString += this.year;
+    htmlString += ') ';
+    htmlString += '<span class="duration">';
+    htmlString += this.duration;
+    htmlString += '</span></li>';
+    return htmlString;
+  }  
+
+  // songs js
+
+  function Song(title, artist, duration){
+    Media.call(this, title, duration);
+    this.artist = artist;
+  }
+
+  Song.prototype = Object.create(Media.prototype);
+
   Song.prototype.toHTML = function(){
     var htmlString = '<li';
-    htmlString += ' class="current"';
+    if (this.isPlaying){
+    htmlString += ' class="current"';      
+    }
     htmlString += '>';
+    htmlString += this.title;
     htmlString += ' - ';
     htmlString += this.artist;
-    htmlString += '<span'
+    htmlString += '<span class="duration">';
+    htmlString += this.duration;
+    htmlString += '</span></li>';
+    return htmlString;
   }
 
   // app js
-  var playlist = new Palylist();
+  var playlist = new Playlist();
   var hereComesTheSun = new Song("Here Comes the Sun", "The Beatles", "2:54");
   var walkingOnSunshine = new Song("Walking on Sunshine", "Katrina", "3:43");
 
+  var manOfSteel = new Movie("Man of Steel", 2013, "2:23:00");
+
   playlist.add(hereComesTheSun);
   playlist.add(walkingOnSunshine);
+
+  playlist.add(manOfSteel);
+
+  var playlistElement = document.getElementById("playlist");
+
+  playlist.renderInElement(playlistElement);
+
+  var playButton = document.getElementById("play");
+  playButton.onclick = function(){
+    playlist.play();
+    playlist.renderInElement(playlistElement);
+  }
+  var nextButton = document.getElementById("next");
+  nextButton.onclick = function(){
+    playlist.next();
+    playlist.renderInElement(playlistElement);
+  }  
+  var stopButton = document.getElementById("stop");
+  stopButton.onclick = function(){
+    playlist.stop();
+    playlist.renderInElement(playlistElement);
+  }  
+</script>  
+
+<script>
+  //quiz js
+  function Quiz(questions){
+    this.score = 0;
+    this.questions = questions;
+    this.currentQuestionIndex = 0;
+  }
+
+  Quiz.prototype.guess = function(answer){
+    if(this.getCurrentQuestion().isCorrectAnswer(answer)){
+      this.score++;
+    }
+    this.currentQuestionIndex++;
+  }
+
+  Quiz.prototype.getCurrentQuestion = function() {
+    return this.questions[this.currentQuestionIndex];
+  }
+
+  Quiz.prototype.hasEnded = function() {
+    return this.currentQuestionIndex >= this.questions.length;
+  }
+
+  // question js
+  function Question(text, choices, answer){
+    this.text = text;
+    this.choices = choices;
+    this.answer = answer;
+  }
+
+  Question.prototype.isCorrectAnswer = function (choice){
+    return this.answer === choice;
+  }
+
+  // quiz_ui js
+  var QuizUi = {
+    displayNext: function(){
+      if (quiz.hasEnded()){
+        this.displayScore();
+      } else {
+        this.displayQuestion();
+        this.displayChoices();
+        this.displayProgress();
+      }
+    },
+    displayQuestion: function(){
+      this.populateIdWithHTML("question", quiz.getCurrentQuestion().text);
+    },
+    displayChoices: function(){
+      var choices = quiz.getCurrentQuestion().choices;
+      for(var i = 0; i < choices.length; i++){
+        this.populateIdWithHTML("choice" + i, choices[i]);
+        this.guessHandler("guess" + i, choices[i]);
+      }
+    },
+    displayScore: function(){
+      var gameOverHTML = "<h1>Game Over</h1>";
+      gameOverHTML += "<h2> Your Score is: " + quiz.score + "</h2>";
+      this.populateIdWithHTML("quiz", gameOverHTML);
+    },
+    populateIdWithHTML: function(id, text){
+      var element = document.getElementById(id);
+      element.innerHTML = text;
+    },
+    guessHandler: function(id, guess){
+      var button = document.getElementById(id);
+      button.onclick = function(){
+        quiz.guess(guess);
+        QuizUi.displayNext();
+      }
+    },
+    displayProgress: function(){
+      var getCurrentQuestionNumber = quiz.currentQuestionIndex + 1;
+      this.populateIdWithHTML("progress", "Question " + getCurrentQuestionNumber + " of " + quiz.questions.length);
+    }
+  };
+
+
+  // app js
+  // create questions
+  var questions = [
+    new Question("Who was the first President of the United States?", ["George Washington", "Thomas Jefferson"], "George Washington"),
+    new Question("What is the answer to the Ultimate Question of Life, the Universe, and Everything?", ["Pi", "42"], "42")
+  ];
+
+  // create quiz
+  var quiz = new Quiz(questions);
+
+  // display quiz
+  QuizUi.displayNext();
 </script>

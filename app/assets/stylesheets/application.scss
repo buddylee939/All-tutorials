@@ -82,6 +82,20 @@ pre {
   border-radius: 20px;
   margin-bottom: 10px;
   text-align: center;
-  font-size: 4em;
+  font-size: 4em;  
+}
 
+ol#playlist {
+  margin: 0; 
+  padding: 0; 
+}
+#playlist li {
+    padding: 20px;
+    list-style: none;
+  }
+.current {
+  background: pink;
+}
+.duration {
+  margin-left: 30px;
 }
