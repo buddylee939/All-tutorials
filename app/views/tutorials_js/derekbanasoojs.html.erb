@@ -1,0 +1,462 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Object Oriented Javascript</h1>
+      <hr>
+      <div id="runScripts"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var element = $('#runScripts');
+  var customer = {
+    name: 'Tom Smith',
+    speak: function(){
+      return "My name is " + this.name;
+    },
+    address: {
+      street: '123 Main St',
+      city: 'Pittsburgh',
+      state: 'PA'
+    }
+  };
+  element.append(customer.speak() + "<br>");
+  element.append(customer.name + ' lives at' + customer.address.street + "<br>");
+  customer.address.country = "US";
+  element.append(customer.address.country + '<br>');
+
+  // constructor functions
+  // constructors provide classes that other languages provide
+  function Person(name, street ){
+    this.name = name;
+    this.street = street;
+    this.info = function(){
+      return "My name is " + this.name + ' and I live on ' + this.street;
+    }
+  }
+
+  var bobSmith = new Person('Bob Smith', '234 Main st');
+  element.append(bobSmith.info() + '<br>');
+
+  // checking to see if an object is an instance of type
+  element.append('Bob is a Person ' + (bobSmith instanceof Person) + '<br>');
+
+  // passing an object to a function and change its values
+  function changeName(person){
+    person.name = "Sue Smith";
+  }
+
+  changeName(bobSmith);
+  // console.log(bobSmith);
+  element.append('Bob became ' + bobSmith.name + "<br>");
+
+  // objects are equal if they reference the exact same object, not if they contain the same data
+  var person1 = new Person('Paul', '123 Main');
+  var person2 = new Person('Paul', '123 Main');
+  element.append('Are they equal ' + (person1 == person2) + "<br>");
+
+  // prototypes, every function is going to have a protype property that is going to contain an object, and you are going to be able to add properties and methods to the prototype object and when you call to execute they are used just as if they belong to your object
+  function getSum(num1, num2){
+    return num1 + num2;
+  }
+  element.append('Num of arguments ' + getSum.length + "<br>");
+
+  // adding properties and methods to objects using prototypes
+
+  function Mammal(name){
+    this.name = name;
+    this.getInfo = function(){
+      return "The mammals name is " + this.name;
+    }
+  }
+
+  Mammal.prototype.sound = "Grrrr";
+  Mammal.prototype.makeSound = function(){
+    return this.name + ' says ' + this.sound;
+  }
+
+  var grover = new Mammal('Grover');
+  element.append(grover.getInfo() + "<br>");
+  element.append(grover.makeSound() + '<br>');
+
+  // list all the properties of an object
+  for (var prop in grover){
+    element.append(prop + ' : ' + grover[prop]  + "<br>");
+  }
+
+  // test to see if a property belongs to the object itself or the prototype of the object
+  element.append('name Property of grover : ' + grover.hasOwnProperty("name") + "<br>");
+  element.append('sound Property of grover : ' + grover.hasOwnProperty("sound") + "<br>");
+
+  // add methods to built in js 
+  Array.prototype.inArray = function inArray(value){
+    for(i=0; i < this.length; i++){
+      if(this[i] === value){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  var samArray = [1,2,3,4,5, 'l'];
+  element.append("3 in array? " + samArray.inArray("l") + "<br>");
+
+  // all properties in an object are public, private properties are declared as variables inside the constructor
+  function SecretCode(){
+    var secretNum = 78;
+    this.guessNum = function(num){
+      if(num > 78){
+        return 'lower';
+      } else if (num < 78){
+        return 'higher';
+      } else {
+        return 'you guessed it';
+      }
+    }
+  }
+
+  var secret = new SecretCode();
+  element.append('Value of secretNum : ' + secret.secretNum  + "<br>");
+  element.append('Is 70 the number : ' + secret.guessNum(78) + "<br>");
+
+  SecretCode.prototype.getSecret = function(){
+    return this.secretNum;
+  }
+
+  element.append('The secret number is ' + secret.getSecret() + "<br>");
+
+  // getters and setters
+  var address = {
+    street: 'No street',
+    city: 'no city',
+    state: 'no state',
+
+    get getAddress(){
+      return this.street + ', ' + this.city + ', ' + this.state;
+    },
+
+    set setAddress(theAddress){
+      var parts = theAddress.toString().split(', ');
+      this.street = parts[0] || '';
+      this.city = parts[1] || '';
+      this.state = parts[2] || '';
+    }
+  }
+
+  address.setAddress = '123 main st, pitts, pa';
+  element.append('Address : ' + address.getAddress + "<br>");
+  element.append('City : ' + address.city + "<br>");
+
+  // deprecated getters and setters
+  function Coordinates(){
+    this.latitude = 0;
+    this.longitude = 0;
+  }
+
+  Object.__defineGetter__.call(Coordinates.prototype, 'getCoords', function(){
+    return 'Lat : ' + this.latitude + " long : " + this.longitude;
+  });
+  Object.__defineSetter__.call(Coordinates.prototype, 'setCoords', function(coords){
+    var parts = coords.toString().split(', ');
+    this.latitude = parts[0] || '';
+    this.longitude = parts[1] || '';
+  });
+
+  var testCoords = new Coordinates();
+  testCoords.setCoords = '40.71, 74.00';
+  element.append('Coordinates : ' + testCoords.getCoords + "<br>");
+
+  // getters and setters using: define property
+  function Point(){
+    this.xPos = 0;
+    this.yPos = 0;
+  }
+  Object.defineProperty(Point.prototype, 'pointPos', {
+    get: function(){
+      return 'X : ' + this.xPos + ' Y : ' + this.yPos;
+    },
+    set: function(thePoint){
+      var parts = thePoint.toString().split(', ');
+      this.xPos = parts[0] || '';
+      this.yPos = parts[1] || '';
+    }
+  });
+  var aPoint = new Point();
+  aPoint.pointPos = '100, 200';
+  element.append('Point position ' + aPoint.pointPos + "<br>");
+
+  // up to date way of creating getters and setters ECMA 5.1
+  var Circle = function(radius){
+    this._radius = radius;
+  }
+
+  Circle.prototype = {
+    set radius(radius){this._radius = radius;},
+    get radius(){return this._radius;},
+    get area(){return Math.PI * (this._radius * this._radius);}
+  };
+  var circ = new Circle(10);
+  circ.radius = 15;
+  element.append('a circle with radius ' + circ.radius + ' has an area of ' + circ.area + "<br>");
+
+  // inheritance
+  function Animal(){
+    this.name - 'Animal';
+    this.toString = function(){
+      return 'My name is ' + this.name;
+    };
+  }
+  function Canine(){
+    this.name = "Canine";
+  }
+  function Wolf(){
+    this.name = 'Wolf';
+  }
+
+  Canine.prototype = new Animal();
+  Wolf.prototype = new Canine();
+  Canine.prototype.constructor = Canine;
+  Wolf.prototype.constructor = Wolf;
+  var arcticWolf = new Wolf();
+  element.append(arcticWolf.toString() + "<br>");
+  element.append('wolf instance of animal : ' + (arcticWolf instanceof Animal) + "<br>");
+  Animal.prototype.sound = "Grrrr";
+  Animal.prototype.getSound = function(){
+    return this.name + ' says ' + this.sound;
+  }
+  Canine.prototype.sound = "Woof";
+  Wolf.prototype.sound = 'Grrrr Woof';
+  element.append(arcticWolf.getSound() + "<br>");
+
+  function Rodent(){
+    this.name = "Rodent";
+  }
+  function Rat(){
+    this.name = "Rat";
+  }
+  Rodent.prototype = new Animal();
+  Rat.prototype = Rodent.prototype;
+  Rodent.prototype.constructor = Rodent;
+  Rat.prototype.constructor = Rat;
+  var caneRat = new Rat();
+  element.append(caneRat.toString() + "<br>");
+
+  // intermediate function
+  function extend(Child, Parent){
+    var Temp = function(){
+
+    };
+    Temp.prototype = Parent.prototype;
+    Child.prototype = new Temp();
+    Child.prototype.constructor = Child;
+  }
+  function Deer(){
+    this.name = "Deer";
+    this.sound = "Snort";
+  }
+  extend(Deer, Animal);
+  var elk = new Deer();
+  element.append(elk.getSound() + "<br>");
+
+  // call parent methods or superclasses
+  function Vehicle(name){
+    this.name = "Vehicle";
+  }
+  Vehicle.prototype = {
+    drive: function(){
+      return this.name + ' drives forward';
+    },
+    stop: function(){
+      return this.name + ' stops';
+    }
+  }
+  function Truck(name){
+    this.name = name;
+  }
+  Truck.prototype = new Vehicle();
+  Truck.prototype.constructor = Truck;
+  Truck.prototype.drive = function(){
+    var driveMsg = Vehicle.prototype.drive.apply(this);
+    return driveMsg += ' through the field';
+  }
+  var jeep = new Truck('Jeep');
+  element.append(jeep.drive() + "<br>");
+  element.append(jeep.stop() + "<br>");
+
+  // ECMA 6
+  // old way of doing it
+  var addStuff = {
+    sum: function(num1, num2){
+      return num1 + num2;
+    }
+  };
+  element.append("1 + 2 = ", addStuff.sum(1,2) + "<br>");
+
+  // new way of doing it
+  var addStuff = {
+    sum(num1, num2){
+      return num1 + num2;
+    }
+  }
+  element.append("1 + 2 = ", addStuff.sum(1,2) + "<br>");
+
+  // classes in ECMA 6, currently dont exist but in 6 they will
+  // old way
+  var Point = function(xPos, yPos){
+    this.xPos = xPos;
+    this.yPos = yPos;
+  };
+  Point.prototype.getPos = function(){
+    return 'X: ' + this.xPos + ' Y: ' + this.yPos;
+  };
+  var point = new Point(100, 200);
+  element.append('point pos : ' + point.getPos() + "<br>");
+
+  // new way
+  class newPoint {
+    constructor(xPos, yPos){
+      this.xPos = xPos;
+      this.yPos = yPos;
+    }
+    getPos(){
+      return 'X: ' + this.xPos + ' Y: ' + this.yPos;
+    }
+  }
+  var point = new newPoint(200,300);
+  element.append('point pos : ' + point.getPos() + "<br>");
+
+  class myAnimal {
+    constructor(name){
+      this.name = name;
+    }
+    toString(){
+      return 'Animal is name ' + this.name;
+    }
+    static getAnimal(){
+      return new myAnimal('No Name');
+    }
+  }
+
+  class Dog extends myAnimal{
+    constructor(name, owner){
+      super(name);
+      this.owner = owner;
+    }
+    toString(){
+      return super.toString() + '<br> Dog is named ' + this.name;
+    }
+  }
+  var rover = new Dog('Rover', 'Paul');
+  element.append(rover.name + ' is owned by ' + rover.owner  + "<br>");
+  element.append(rover.toString() + "<br>");
+  var bowser = myAnimal.getAnimal();
+  element.append('bowser info : ' + bowser.toString() + "<br>");
+
+  // design patterns
+  // the singleton pattern, when only one instance of an object will ever be created
+  function Hero(name){
+    if(typeof Hero.instance === 'object'){
+      return Hero.instance;
+    }
+    this.name = name;
+    Hero.instance = this;
+    return this;
+  }
+  var derekHero = Hero('Derek');
+  element.append('our hero is ' + derekHero.name  + "<br>");
+
+  var paulHero = Hero('Paul');
+  element.append('our hero is ' + paulHero.name + "<br>");
+
+  // factory patterns
+  function Sword(desc){
+    this.weaponType = "Sword";
+    this.metal = desc.metal || 'Steel';
+    this.style = desc.style || 'Longsword';
+    this.hasMagic = desc.hasMagic || false;
+  }
+
+  function Bow(desc){
+    this.weaponType = "Bow";
+    this.metal = desc.metal || 'Wood';
+    this.style = desc.style || 'Longbow';
+    this.hasMagic = desc.hasMagic || false;
+  }
+  function WeaponFactory(){};
+  WeaponFactory.prototype.makeWeapon = function(desc){
+    var weaponClass = null;
+    if(desc.weaponType === "Sword"){
+      weaponClass = Sword;      
+    } else if (desc.weaponType === "Bow") {
+      weaponClass = Bow;       
+    } else {
+      return false;
+    }
+    return new weaponClass(desc);
+  }
+  var myWeaponFact = new WeaponFactory();
+  var bladeFist = myWeaponFact.makeWeapon({
+    weaponType: 'Sword',
+    metal: 'Dark Iron',
+    style: 'Scythe',
+    hasMagic: true
+  });
+  element.append(bladeFist.weaponType + ' of type ' + bladeFist.style + ' crafted from ' + bladeFist.metal + "<br>");
+
+  // decorator pattern
+  function Pizza(price){
+    this.price = price || 10;    
+  }
+  Pizza.prototype.getPrice = function(){
+    return this.price;
+  }
+  function ExtraCheese(pizza){
+    var prevPrice = pizza.price;
+    pizza.price = prevPrice + 1;
+  }
+  var myPizza = new Pizza(10);
+  ExtraCheese(myPizza);
+  element.append('cost of pizza : $' + myPizza.price + "<br>");
+
+  // observer pattern
+  var Observable = function(){
+    this.subscribers = [];
+  }
+  Observable.prototype = {
+    subscribe: function(subscriber ){
+      this.subscribers.push(subscriber);
+    },
+    unsubscribe: function(unsubscriber){
+      for(i=0; i < this.subscribers.length; i++){
+        if(this.subscribers[i] === unsubscriber){
+          this.subscribers.splice(i, 1);
+          return unsubscriber.name;
+        }
+      }
+    },
+    publish: function(data){
+      for(i=0; i < this.subscribers.length; i++){
+        this.subscribers[i].receiveData(data);
+      }
+    }
+  };
+  var OrganFanny = {
+    name: 'Organ Fanny',
+    receiveData: function(data){
+      element.append(this.name + ' received your info ' + data + "<br>");
+    }
+  }
+  var BoldmanYaks = {
+    name: 'Boldman Yaks',
+    receiveData: function(data){
+      element.append(this.name + ' received your info ' + data + "<br>");
+    }
+  }
+  observable = new Observable();
+  observable.subscribe(OrganFanny);
+  observable.subscribe(BoldmanYaks);
+  observable.publish('IBM at $145.39');
+  element.append(observable.unsubscribe(OrganFanny) + ' unsubscribed<br>');
+  observable.publish('IBM at $133.44');
+</script>

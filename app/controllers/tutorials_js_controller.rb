@@ -17,4 +17,7 @@ class TutorialsJsController < ApplicationController
 
   def treehouseobject
   end  
+
+  def derekbanasoojs
+  end
 end
