@@ -20,4 +20,7 @@ class TutorialsJsController < ApplicationController
 
   def derekbanasoojs
   end
+
+  def dangerousjs
+  end
 end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'tutorials_js/traversyjquerycrashcourse'
   get 'tutorials_js/treehouseobject'
   get 'tutorials_js/derekbanasoojs'
+  get 'tutorials_js/dangerousjs'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
